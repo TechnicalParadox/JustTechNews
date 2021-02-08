@@ -5,7 +5,7 @@ const withAuth = require('../../utils/auth');
 
 router.get('/', withAuth, (req, res) =>
 {
-  Post.findAll( // Find all Posts
+  Post.findAll( // Find all Posts // TODO: replace with a Post function that finds all in descending order and takes in "where:" params
   {
     where: { user_id: req.session.user_id }, // Where Post.user_id matches req.session.user_id
     attributes: // We want the Post.id, .post_url, .title, .created_at, and vote_count
@@ -13,6 +13,7 @@ router.get('/', withAuth, (req, res) =>
       'id', 'post_url', 'title', 'created_at',
       [sequelize.literal('(SELECT COUNT(*) FROM vote WHERE post.id = vote.post_id)'), 'vote_count']
     ],
+    order: [['created_at', 'DESC']],
     include:
     [
       {
