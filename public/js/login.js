@@ -16,7 +16,7 @@ async function signupFormHandler(event)
     });
 
     if (response.ok) { console.log('success'); }
-    else { alert(response.statusText); }
+    else { alert("Username or email is already in use!"); }
   }
 }
 
@@ -37,7 +37,7 @@ async function loginFormHandler(event)
     });
 
     if (response.ok) document.location.replace('/dashboard');
-    else alert(response.statusText);
+    else alert("Incorrect email or password!");
   }
 }
 
